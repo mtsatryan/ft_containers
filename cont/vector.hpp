@@ -35,6 +35,7 @@ namespace ft
 		typedef ft::reverse_iterator<iterator>			const_iterator;
 		typedef	ft::reverse_iterator<const_iterator>	reverse_iterator;
 
+#pragma region 
 		// CONSTRUCTORS //
 		explicit vector (const allocator_type& alloc = allocator_type());
 		explicit vector (size_type n, const value_type& val = value_type(),
