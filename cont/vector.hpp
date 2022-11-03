@@ -6,7 +6,7 @@
 /*   By: mtsatrya <mtsatrya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 21:10:25 by mtsatrya          #+#    #+#             */
-/*   Updated: 2022/11/01 23:21:09 by mtsatrya         ###   ########.fr       */
+/*   Updated: 2022/11/02 22:36:36 by mtsatrya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,9 @@ namespace ft
 		typedef	ft::reverse_iterator<const_iterator>	reverse_iterator;
 
 		// CONSTRUCTORS //
-		vector();
-		explicit vector( const Allocator& alloc );
-		explicit vector( size_type count, const T& value = T(), const Allocator& alloc = Allocator());
+		explicit vector (const allocator_type& alloc = allocator_type());
+		explicit vector (size_type n, const value_type& val = value_type(),
+						const allocator_type& alloc = allocator_type());
 		template< class InputIt >
 			vector( InputIt first, InputIt last, const Allocator& alloc = Allocator() );
 		vector( const vector& other );
@@ -47,7 +47,10 @@ namespace ft
 		~vector();
 
 		// OPERATOR //
-		vector& operator=( const vector& other );
+		vector& operator=( const vector& other )
+		{
+			vector
+		}
 		
 		// ASSIGN //
 		void assign( size_type count, const T& value );
