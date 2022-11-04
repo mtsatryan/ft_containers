@@ -6,7 +6,7 @@
 /*   By: mtsatrya <mtsatrya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 21:10:25 by mtsatrya          #+#    #+#             */
-/*   Updated: 2022/11/02 22:36:36 by mtsatrya         ###   ########.fr       */
+/*   Updated: 2022/11/04 18:47:12 by mtsatrya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,26 +27,47 @@ namespace ft
 		typedef Alloc									allocator_type;
 		typedef	size_t									size_type;
 		typedef ptrdiff_t								difference_type;
-		typedef T&										referennce;
-		typedef	const T									const_reference;
-		typedef Allocator::pointer						pointer;
-		typedef Allocator::const_pointer				const_pointer;
+		typedef allocator_type::reference				referennce;
+		typedef	allocator_type::const_reference			const_reference;
+		typedef allocator_type::pointer					pointer;
+		typedef allocator_type::const_pointer			const_pointer;
 		typedef ft::iterator<iterator>					iterator;
 		typedef ft::reverse_iterator<iterator>			const_iterator;
 		typedef	ft::reverse_iterator<const_iterator>	reverse_iterator;
 
-#pragma region 
+
+	private:
+		pointer			_ptr;
+		allocator_type	_alloc;
+		size_type		_capacity;
+		size_type		_size;
+	
+	public:
 		// CONSTRUCTORS //
-		explicit vector (const allocator_type& alloc = allocator_type());
+		explicit vector (const allocator_type& alloc = allocator_type()) : _ptr(NULL), _alloc(NULL), _capacity(NULL), _size(NULL) {}
+		
 		explicit vector (size_type n, const value_type& val = value_type(),
-						const allocator_type& alloc = allocator_type());
+						const allocator_type& alloc = allocator_type()) : _capacity(n), _alloc(alloc) 
+		{
+			_size = 0;
+			_ptr = alloc->allocate(n);
+			while (_size < n)
+			{
+				_ptr + _size = val;
+				_size++;
+			}
+		}
+		
 		template< class InputIt >
-			vector( InputIt first, InputIt last, const Allocator& alloc = Allocator() );
+			vector( InputIt first, InputIt last, char c, const Allocator& alloc = Allocator()); // DELETE CHAR C AFTER YOU ADD ENABLE_IF
+			
 		vector( const vector& other );
 
 		// DESTRUCTOR //
-		~vector();
-
+		~vector()
+		{
+			
+		}
 		// OPERATOR //
 		vector& operator=( const vector& other )
 		{
