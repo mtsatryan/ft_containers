@@ -6,7 +6,7 @@
 /*   By: mtsatrya <mtsatrya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 21:10:25 by mtsatrya          #+#    #+#             */
-/*   Updated: 2022/11/04 18:47:12 by mtsatrya         ###   ########.fr       */
+/*   Updated: 2022/11/05 16:08:37 by mtsatrya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,15 +25,16 @@ namespace ft
 	public:
 		typedef T 										value_type;
 		typedef Alloc									allocator_type;
-		typedef	size_t									size_type;
-		typedef ptrdiff_t								difference_type;
+		typedef	allocator_type::size_t					size_type;
+		typedef allocator_type::difference_type			difference_type;
 		typedef allocator_type::reference				referennce;
 		typedef	allocator_type::const_reference			const_reference;
 		typedef allocator_type::pointer					pointer;
 		typedef allocator_type::const_pointer			const_pointer;
-		typedef ft::iterator<iterator>					iterator;
-		typedef ft::reverse_iterator<iterator>			const_iterator;
-		typedef	ft::reverse_iterator<const_iterator>	reverse_iterator;
+		typedef v_iterator<iterator>					iterator;
+		typedef v_iterator<const_pointer>				const_iterator;
+		typedef ft::reverse_iterator<iterator>			reverse_iterator;
+		typedef	ft::reverse_iterator<const_iterator>	const_reverse_iterator;
 
 
 	private:
@@ -59,7 +60,14 @@ namespace ft
 		}
 		
 		template< class InputIt >
-			vector( InputIt first, InputIt last, char c, const Allocator& alloc = Allocator()); // DELETE CHAR C AFTER YOU ADD ENABLE_IF
+			vector( InputIt first, InputIt last, char c, const Allocator& alloc = Allocator()) // DELETE CHAR C AFTER YOU ADD ENABLE_IF
+			{
+				while (first <= last)
+				{
+					_ptr = alloc->allocate(this);
+					first++;
+				}
+			}
 			
 		vector( const vector& other );
 
