@@ -20,7 +20,7 @@
 #include "vector.hpp"
 #include "lexicographical_compare.hpp"
 #include "map.hpp"
-//#include "pair.hpp"
+#include "pair.hpp"
 #include "reverse_iterator.hpp"
 #include "stack.hpp"
 #include "vector.hpp"
