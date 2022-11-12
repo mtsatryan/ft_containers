@@ -1,0 +1,9 @@
+{
+    "makefile.launchConfigurations": [
+        {
+            "cwd": "/Users/mgtsatryan/Desktop/ft_containers",
+            "binaryPath": "/Users/mgtsatryan/Desktop/ft_containers/ft_containers",
+            "binaryArgs": []
+        }
+    ]
+}
