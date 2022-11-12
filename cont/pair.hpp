@@ -15,20 +15,23 @@
 
 namespace ft
 {
-	template<class T1, class T2> struct pair;
-	// MEMBER TYPES
-	typedef T1 first_type;
-	typedef T2 second_type;
-	// MEMBER OBJECTS
-	first_type first;
-	second_type second;
+	template<class T1, class T2> 
+	class pair
+	{
+		// MEMBER TYPES
+			typedef T1 first_type;
+			typedef T2 second_type;
+			// MEMBER OBJECTS
+			first_type first;
+			second_type second;
 
-// MEMBER FUNCTIONS
-	// CONSTRUCTORS
+		// MEMBER FUNCTIONS
+			// CONSTRUCTORS
 			pair() : first(), second() { }
-			template<class U, class V>pair (const pair<U, V> &pr) : first(pr.first), second(pr.second) { }
+			template<class U, class V>
+			pair (const pair<U, V> &pr) : first(pr.first), second(pr.second) { }
 			pair (const first_type &a, const second_type &b) : first(a), second(b) { } 
-	// OPERATOR=
+			// OPERATOR=
 			pair &operator=(const pair &pr)
 			{
 				first = pr.first;
@@ -36,8 +39,9 @@ namespace ft
 
 				return (*this);
 			}
+	};
 	// SWAP
-			template <class T1, class T2>
+			template <class T>
 			void    swap(T& a, T& b)
 			{
 			   	T tmp;
