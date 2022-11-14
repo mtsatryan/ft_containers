@@ -116,7 +116,6 @@ namespace ft
 		}
 
 		~reverse_iterator() { }
-
 	};
 }
 

@@ -23,25 +23,25 @@ namespace ft
 	class vector
 	{
 	public:
-		typedef T 										value_type;
-		typedef Alloc									allocator_type;
-		typedef	allocator_type::size_t					size_type;
-		typedef allocator_type::difference_type			difference_type;
-		typedef allocator_type::reference				referennce;
-		typedef	allocator_type::const_reference			const_reference;
-		typedef allocator_type::pointer					pointer;
-		typedef allocator_type::const_pointer			const_pointer;
-		typedef v_iterator<iterator>					iterator;
-		typedef v_iterator<const_pointer>				const_iterator;
-		typedef ft::reverse_iterator<iterator>			reverse_iterator;
-		typedef	ft::reverse_iterator<const_iterator>	const_reverse_iterator;
+		typedef T 												value_type;						// !
+		typedef Alloc											allocator_type;					// !
+		typedef	allocator_type::size_type						size_type;						// !
+		typedef allocator_type::difference_type					difference_type;				// !
+		typedef typename allocator_type::reference				referennce;						// !
+		typedef typename allocator_type::const_reference		const_reference;				// !
+		typedef typename allocator_type::pointer				pointer;						// !
+		typedef typename allocator_type::const_pointer			const_pointer;					// !
+		typedef ft::random_access_iterator<value_type>			iterator;						// !
+		typedef ft::random_access_iterator<const value_type>	const_iterator;					// !
+		typedef ft::reverse_iterator<iterator>					reverse_iterator;				// !
+		typedef	ft::reverse_iterator<const_iterator>			const_reverse_iterator;			// !
 
 
 	private:
-		pointer			_ptr;
-		allocator_type	_alloc;
-		size_type		_capacity;
-		size_type		_size;
+		pointer			_ptr;																	// ! this is where the fun begins
+		allocator_type	_alloc;																	// ! 
+		size_type		_capacity;																// !
+		size_type		_size;																	// !
 	
 	public:
 		// CONSTRUCTORS //
@@ -59,34 +59,96 @@ namespace ft
 			}
 		}
 		
-		template< class InputIt >
-			vector( InputIt first, InputIt last, char c, const Allocator& alloc = Allocator()) // DELETE CHAR C AFTER YOU ADD ENABLE_IF
+		template<class InputIterator>
+		vector( InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type()) // DELETE CHAR C AFTER YOU ADD ENABLE_IF
+		{
+			while (first <= last)
 			{
-				while (first <= last)
-				{
-					_ptr = alloc->allocate(this);
-					first++;
-				}
+				_ptr = alloc->allocate(this);
+				first++;
 			}
-			
-		vector( const vector& other );
+		}
+		
+		vector( const vector& other ) : _size(NULL), _capacity(NULL) { *this = other; }
 
 		// DESTRUCTOR //
 		~vector()
 		{
-			
+			size_type i;
+
+			i = 0;
+			while(i < _size)
+			{
+				_alloc.destroy(_ptr + i);
+				i++;
+			}
+			if (_capacity)
+				_alloc.deallocate(_ptr, _capacity);
 		}
-		// OPERATOR //
-		vector& operator=( const vector& other )
+
+		// OPERATOR= //
+		vector& operator= (const vector& x)
 		{
-			vector
+			size_type i;
+
+			i = 0;
+			if (this == &x)
+				return (*this);
+			while (i < _size)
+			{
+				_alloc.destroy(_ptr + i);
+				i++;
+			}
+			this->_size = x._size;
+			if (_capacity < _size)
+			{
+				if (_capacity != 0)
+					_capacity(_ptr, _capacity);
+				_capacity = _size;
+				_ptr = _alloc.allocate(_capacity);
+			}
+			i = 0;
+			while (i < _size)
+			{
+				_alloc.construct(_ptr + i, x[i]);
+				i++;
+			}
+			return (*this);
 		}
 		
 		// ASSIGN //
-		void assign( size_type count, const T& value );
-		template< class InputIt >
-			void assign( InputIt first, InputIt last );
-		// ALLOCATOR //
+		void assign(size_type count, const T& value)
+		{
+			size_type i;
+
+			i = 0;
+			while(i < _size)
+			{
+				_alloc.destroy(_ptr + i);
+				i++;
+			}
+			_size = 0;
+			if (count > _capacity)
+			{
+				_alloc.deallocate(_ptr, _capacity);
+				_ptr = _alloc.allocate(count);
+				_capacity = count;
+			}
+			i = 0;
+			while(i < count)
+			{
+				_alloc.construct(_ptr + i, value);
+				i++;
+			}
+			_size = count;
+		}
+
+		template< class InputIterator >
+		void assign( InputIterator first, InputIterator last )
+		{
+			
+		}
+		// ALLOCATOR GETTER //
 		allocator_type get_allocator() const;
 	};
 }
