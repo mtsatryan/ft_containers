@@ -23,25 +23,25 @@ namespace ft
 	class vector
 	{
 	public:
-		typedef T 												value_type;						// !
-		typedef Alloc											allocator_type;					// !
-		typedef	allocator_type::size_type						size_type;						// !
-		typedef allocator_type::difference_type					difference_type;				// !
-		typedef typename allocator_type::reference				referennce;						// !
-		typedef typename allocator_type::const_reference		const_reference;				// !
-		typedef typename allocator_type::pointer				pointer;						// !
-		typedef typename allocator_type::const_pointer			const_pointer;					// !
-		typedef ft::random_access_iterator<value_type>			iterator;						// !
-		typedef ft::random_access_iterator<const value_type>	const_iterator;					// !
-		typedef ft::reverse_iterator<iterator>					reverse_iterator;				// !
-		typedef	ft::reverse_iterator<const_iterator>			const_reverse_iterator;			// !
+		typedef T 												value_type;						
+		typedef Alloc											allocator_type;					
+		typedef	allocator_type::size_type						size_type;						
+		typedef allocator_type::difference_type					difference_type;				
+		typedef typename allocator_type::reference				referennce;						
+		typedef typename allocator_type::const_reference		const_reference;				
+		typedef typename allocator_type::pointer				pointer;						
+		typedef typename allocator_type::const_pointer			const_pointer;					
+		typedef ft::random_access_iterator<value_type>			iterator;						
+		typedef ft::random_access_iterator<const value_type>	const_iterator;					
+		typedef ft::reverse_iterator<iterator>					reverse_iterator;				
+		typedef	ft::reverse_iterator<const_iterator>			const_reverse_iterator;			
 
 
 	private:
-		pointer			_ptr;																	// ! this is where the fun begins
-		allocator_type	_alloc;																	// ! 
-		size_type		_capacity;																// !
-		size_type		_size;																	// !
+		pointer			_ptr;																	
+		allocator_type	_alloc;																	
+		size_type		_capacity;																
+		size_type		_size;																	
 	
 	public:
 		// CONSTRUCTORS //
@@ -60,7 +60,7 @@ namespace ft
 		}
 		
 		template<class InputIterator>
-		vector( InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type()) // DELETE CHAR C AFTER YOU ADD ENABLE_IF
+		vector( InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type())
 		{
 			while (first <= last)
 			{
@@ -143,13 +143,141 @@ namespace ft
 			_size = count;
 		}
 
+
 		template< class InputIterator >
-		void assign( InputIterator first, InputIterator last )
+		void assign( InputIterator first, InputIterator last ) //enable_if<!is_integral<InputIterator>::value>::type* = 0 ==> WTF IS THAT
 		{
-			
+			size_type i;
+
+			i = 0;	
+			if (first < last)
+				throw std::logic_error("vector");
+			difference_type count = last - first;
+			while(i < _size)
+			{
+				_alloc.destroy(_ptr + i);
+				i++;
+			}
+			_size = 0;
+			if (count < static_cast<difference_type>(_capacity()))
+			{
+				_alloc.deallocate(_ptr, _capacity);
+				_ptr = _alloc.allocate(count);
+				_capacity = count;
+			}
+			iterator tmp = begin();
+			while (first < last)
+			{
+				_alloc.construct(tmp.base(), *first);
+				tmp++;
+				first++;
+			}
+			_size = count;
 		}
+
 		// ALLOCATOR GETTER //
-		allocator_type get_allocator() const;
+		allocator_type get_allocator() const { return (_alloc); }
+
+		// ITERATOTS //
+		 iterator begin()
+		 {
+			iterator tmp;
+			tmp = _ptr;
+			return (tmp);
+			// CAN I WRITE LIKE THAT: return (iterator tmp = _ptr);
+		 }
+
+		 const_iterator begin() const
+		 {
+			const_iterator tmp;
+			tmp = _ptr;
+			return (tmp);
+			// CAN I WRITE LIKE THAT: return (iterator const_tmp = tmp);
+		 }
+
+		 iterator end()
+		 {
+			iterator tmp;
+			tmp = _ptr + _size;
+			return (tmp);
+			// CAN I WRITE LIKE THAT: return (iterator tmp = _ptr + size);
+		 }
+		 const_iterator end() const
+		 {
+			const_iterator tmp;
+			tmp = _ptr + size;
+			// CAN I WRITE LIKE THAT: return (iterator const_tmp = _ptr + size);
+		 }
+
+		 reverse_iterator rbegin()
+		 {
+			reverse_iterator tmp;
+			tmp = _ptr + size;
+			return (tmp);
+		 }
+		 
+		 const_reverse_iterator rbegin() const
+		 {
+			const_reverse_iterator tmp;
+			tmp = _ptr + size;
+			return (tmp);
+		 }
+
+		 reverse_iterator rend()
+		 {
+			reverse_iterator tmp;
+			tmp = _ptr;
+			return (tmp);
+		 }
+		 
+		 const_reverse_iterator rend() const
+		 {
+			const_reverse_iterator tmp;
+			tmp = _ptr;
+			return (tmp);
+		 }
+
+		 // CAPACITY
+		 /*
+					size
+					max_size
+					resise
+					capacity
+					empty
+					reserve
+					shrink_to_fit 
+		 */
+
+		size_type size() const
+		{
+			return (this->_size);
+		}
+
+		size_type max_size() const
+		{
+			return (this->_capacity);
+		}
+
+		void resize (size_type n, value_type val = value_type())
+		{
+			size_type i = size();
+			if (i > n)
+			{
+				for(size_type _i = _ptr; _i < n; _i++)
+						_alloc.allocate(val);
+				this->_size = n;
+			}
+			else if (i < n)
+			{
+				if (n > _capacity)
+				{
+					// something to insert (n - _capacity times, fill with values)
+					
+				}
+			}	
+			this->_size = n;
+
+		}
 	};
 }
 
