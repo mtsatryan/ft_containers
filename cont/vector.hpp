@@ -238,46 +238,121 @@ namespace ft
 		 }
 
 		 // CAPACITY
-		 /*
-					size
-					max_size
-					resise
-					capacity
-					empty
-					reserve
-					shrink_to_fit 
-		 */
 
-		size_type size() const
-		{
-			return (this->_size);
-		}
-
-		size_type max_size() const
-		{
-			return (this->_capacity);
-		}
+		size_type size() const { return (this->_size); }
+		size_type max_size() const { return (_alloc.max_size()); }
+		size_type capacity() const { return (this->_capacity); }
+		bool empty() const { return (!this->_size); } 					// || _size == 0
 
 		void resize (size_type n, value_type val = value_type())
 		{
-			size_type i = size();
-			if (i > n)
+			iterator res;
+
+			res = this->end();
+			if (n > this->max_size())
+				throw(std::length_error("vector::resize"));
+			else if (n < this->size())
 			{
-				for(size_type _i = _ptr; _i < n; _i++)
-						_alloc.allocate(val);
-				this->_size = n;
-			}
-			else if (i < n)
-			{
-				if (n > _capacity)
+				while (this->size() > n)
 				{
-					// something to insert (n - _capacity times, fill with values)
-					
+					--res;
+					_alloc(destroy(res));
 				}
-			}	
-			this->_size = n;
+			}
+			else 
+				this->insert(this->end(), n - this->size(), val);
+		}
+
+		void reserve (size_type n)
+		{
+			if (n < _capacity)
+				return ;
+			pointer tmp = _alloc.allocate(n);
+			try {
+				for (size_type i = 0; i < _size; i++)
+					_alloc.construct(tmp + i, *(_ptr + i));
+			} catch (std::exception &e) {
+				size_type i = 0;
+				while (tmp + i = NULL && i < _size)
+				{
+					_alloc.destroy(tmp + i);
+					i++;
+				}
+				_alloc.deallocate(tmp, n);
+				throw;
+			}
+			for (size_type _i = 0; _i < _size; _i++)
+				_alloc.destroy(_ptr + i);
+			if (_capacity)
+				_alloc.deallocate(_ptr, _capacity);
+			_capacity = n;
+			_ptr = tmp;
+		}
+
+		/* MODIFIERS
+		!	assign
+		!	push_back
+		!	pop_back
+			insert
+			erase
+			swap
+			clear
+			emplace
+			emplace_back
+		*/
+
+		void push_back (const value_type& val)
+		{
+			if (_size == _capacity)
+			{
+				if (_capacity == 0)
+					reserve(1);
+				else
+					reserve(_capacity * 2);
+			}
+			_alloc.construct(_ptr + _size, val);
+			_size++;
+		}
+
+		void pop_back()
+		{
+			_alloc.destroy(_ptr + _size - 1);
+			_size--;
+		}
+
+
+		iterator insert (iterator position, const value_type& val)
+		{ 
+			if (position < begin() || position > end())
+				throw std::logic_error("vector");
+			difference_type tmp = position - begin();
+			if (_size == _capacity)
+			{
+
+			}
+		}
+		
+		void insert (iterator position, size_type n, const value_type& val)
+		{
+			const size_type i = position - this->begin();
 
 		}
+		
+		template <class InputIterator>
+		void insert (iterator position, InputIterator first, InputIterator last)
+		{
+
+		}
+
+
+		/* ELEMENT ACCESS
+			operator[]
+			at
+			front
+			back
+			data		
+		*/  
+	
 	};
 }
 
