@@ -2,17 +2,16 @@
 My ft_containers project for42
 
 TODO:
-FIX ==>pair.hpp // done
 
 0. ADDITIONAL FUNCTIONS -> DONE;
-1. VECTOR
-2. STACK
-3. MAP
+1. VECTOR   =>  IN PROGRESS
+2. STACK    =>  TO DO
+3. MAP      =>  TO DO
+4. TEST     =>  TO DO
+5. BUG FIX  =>  TO DO
 
 
 TODO: VECTOR:
 
-1. Iterators;     DONE
-2. Capacity;      DONE
-3. Element acess;
-4. Modifiers;
+1. Element acess => DONE
+2. Modifiers => insert

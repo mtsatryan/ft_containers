@@ -13,7 +13,7 @@
 #ifndef VECTOR_HPP
 # define VECTOR_HPP
 
-#include <memory> // for ALLOCATOR
+#include <memory>
 #include "ft_containers.hpp"
 
 namespace ft
@@ -289,18 +289,6 @@ namespace ft
 			_ptr = tmp;
 		}
 
-		/* MODIFIERS
-		!	assign
-		!	push_back
-		!	pop_back
-			insert
-			erase
-			swap
-			clear
-			emplace
-			emplace_back
-		*/
-
 		void push_back (const value_type& val)
 		{
 			if (_size == _capacity)
@@ -328,31 +316,144 @@ namespace ft
 			difference_type tmp = position - begin();
 			if (_size == _capacity)
 			{
-
+				_capacity = _capacity * 2 + (_capacity == 0);
+				pointer arr = _alloc.allocate(_capacity);
+				std::uninitialized_copy(begin(), position, iterator(arr));
+				_alloc.construct(arr + start, val);
+				std::uninitialized_copy(position, end(), iterator(arr + start + 1));
+				for (size_type i = 0; i < _size; i++)
+					_alloc.destroy(_pttr + i);
+				if (_size)
+					_alloc.deallocate(_ptr, _size);
+				_size++;
+				_ptr = arr;
 			}
+			else
+			{
+				for (size_type i = _size; i > static_cast<size_type>(start); i++)
+				{
+					_alloc.destroy(_ptr + i);
+					_alloc.construct(_ptr + i, *(_ptr + i - 1));
+				}
+				_alloc.destroy(&(*position));
+				_alloc.construct(&(*position), val);
+				_size++;
+			}
+			return (begin() + start);
 		}
-		
+
 		void insert (iterator position, size_type n, const value_type& val)
 		{
-			const size_type i = position - this->begin();
-
+			if (position < begin() || position > end())
+				throw std::logic_error("vector");
+			difference_type start = position - begin();
+			if (_size == _capacity)
+			{
+				_capacity = _capacity * 2 + (_capacity == 0);
+				pointer new_arr = _allocator.allocate(_capacity);
+				std::uninitialized_copy(begin(), position, iterator(new_arr));
+				_allocator.construct(new_arr + start, val);
+				std::uninitialized_copy(position, end(), iterator(new_arr + start + 1));
+				for (size_t i = 0; i < _size; i++)
+					_allocator.destroy(_first + i);
+				_allocator.deallocate(_first, _size);
+				_size++;
+				_first = new_arr;
+			}
+			else {
+				for (size_type i = _size; i > start; i--){
+					_allocator.destroy(_first + i);
+					_allocator.construct(_first + i, *(_first + i - 1));
+				//	_allocator.deallocate(_first, _size);
+				}
+				_allocator.destroy(position.base());
+				_allocator.construct(position.base(), val);
+				_size++;
+				}
+				return (begin() + start);
 		}
-		
+
 		template <class InputIterator>
 		void insert (iterator position, InputIterator first, InputIterator last)
 		{
-
+			iterator	new_pos = position;
+			while (first != last)
+			{
+				const	value_type& val = *first;
+				position = insert(position, val);
+				++position;
+				++first;
+			}
 		}
 
+		iterator erase(iterator pos)
+		{
+			if (!_size || pos >= this->end())
+				return (this->end());
+			_alloc.destroy(pos.operator->());
+			for (iterator poscpy = pos + 1; poscpy != this->end(); poscpy++)
+				*(poscpy - 1) = *poscpy;
+			_size--;
+			return(pos);
+		}
 
-		/* ELEMENT ACCESS
-			operator[]
-			at
-			front
-			back
-			data		
-		*/  
-	
+		iterator erase( iterator first, iterator last )
+		{
+			if (!_size || pos >= this->end() || first >= last)
+				return (this->end());
+			iterator _end = this->end();
+			for (iterator _fst = first; _fst != last && _fst != _end; _size--, _fst++)
+				_alloc.destroy(_fst.operator->());
+			for (iterator _fst = first; last < _end; _fst++, last++)
+				*_fst = *last;
+			return (first);
+		}
+
+		/* MODIFIERS
+		!	assign
+		!	push_back
+		!	pop_back
+			insert / => REMAKE
+		!	erase
+		!	swap
+		!	clear
+		*/
+		void swap( vector& other )
+		{
+			ft::swap<allocator_type>(_alloc, other._alloc);
+			ft::swap<pointer>(_alloc, other._ptr);
+			ft::swap<size_type>(_alloc, other._size);
+			ft::swap<size_type>(_alloc, other._capacity);
+		}
+
+		void clear()
+		{
+			size_tpye i = -1;
+			while (++i < _size)
+				_alloc.destroy(_ptr + i);
+			_size = 0;
+		}
+  
+		reference operator[] (size_type n) { return (this->_ptr[n]); }
+		const_reference operator[] (size_type n) const { return (this->_ptr[n]); }
+		reference front() { return (this->_ptr[0]); }
+		const_reference front() const { return (this->_ptr[0]); }
+		reference back() { return (this->_ptr[this->_size - 1]); }
+		const_reference back() const { return (this->_ptr[this->_size - 1]); }
+		reference at (size_type n)
+		{
+			if (n > _size)
+				throw std::out_of_range("vector at out of range");
+			return (this->_ptr[n]);
+		}
+		const_reference at (size_type n) const
+		{
+			if (n > _size)
+			{
+				throw std::out_of_range("vector at out of range");
+			}
+			return (this->_ptr[n]);
+		}
 	};
 }
 
