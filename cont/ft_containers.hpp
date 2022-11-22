@@ -13,6 +13,7 @@
 #ifndef FT_CONTAINERS_HPP
 # define FT_CONTAINERS_HPP
 
+#include <memory>
 #include "enable_if.hpp"
 #include "equal.hpp"
 #include "is_integral.hpp"

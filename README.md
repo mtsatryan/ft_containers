@@ -12,6 +12,4 @@ TODO:
 
 
 TODO: VECTOR:
-
-1. Element acess => DONE
-2. Modifiers => insert
+1. Modifiers => insert
