@@ -5,11 +5,12 @@ TODO:
 
 0. ADDITIONAL FUNCTIONS -> DONE;
 1. VECTOR   =>  IN PROGRESS
-2. STACK    =>  TO DO
+2. **STACK    =>  DONE**
 3. MAP      =>  TO DO
-4. TEST     =>  TO DO
+4. TEST     =>  STACK;
 5. BUG FIX  =>  TO DO
 
+ITERATORS!!!!! -> RANDOM ACCESS ITERATOR
 
 TODO: VECTOR:
-1. Modifiers => insert
+1. RANDOM_ACCESS_ITERATOR
