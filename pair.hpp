@@ -3,15 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   pair.hpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtsatrya <mtsatrya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mtsatrya <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/04 15:36:20 by mtsatrya          #+#    #+#             */
-/*   Updated: 2022/11/03 20:45:56 by mtsatrya         ###   ########.fr       */
+/*   Updated: 2022/12/09 16:15:52 by mtsatrya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PAIR_HPP
 # define PAIR_HPP
+
+#include "ft_containers.hpp"
 
 namespace ft
 {
@@ -41,15 +43,15 @@ namespace ft
 			}
 	};
 	// SWAP
-			template <class T>
-			void    swap(T& a, T& b)
-			{
-			   	T tmp;
+	template <class T>
+	void    swap(T& a, T& b)
+	{
+		T tmp;
 
-				tmp = a;
-				a = b;
-			    b = tmp;
-			}
+		tmp = a;
+		a = b;
+		b = tmp;
+	}
 	// NON-MEMBER FUNCTIONS
 			// MAKE_PAIR
 			template <class T1, class T2>

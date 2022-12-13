@@ -3,15 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   is_integral.hpp                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtsatrya <mtsatrya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mtsatrya <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/04 15:35:41 by mtsatrya          #+#    #+#             */
-/*   Updated: 2022/11/04 19:12:22 by mtsatrya         ###   ########.fr       */
+/*   Updated: 2022/12/09 16:15:37 by mtsatrya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef IS_INTEGRAL_HPP
 # define IS_INTEGRAL_HPP
+
+#include "ft_containers.hpp"
 
 namespace ft
 {

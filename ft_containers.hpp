@@ -3,27 +3,39 @@
 /*                                                        :::      ::::::::   */
 /*   ft_containers.hpp                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtsatrya <mtsatrya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mtsatrya <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/04 15:37:46 by mtsatrya          #+#    #+#             */
-/*   Updated: 2022/11/03 20:45:53 by mtsatrya         ###   ########.fr       */
+/*   Updated: 2022/12/09 17:47:36 by mtsatrya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_CONTAINERS_HPP
 # define FT_CONTAINERS_HPP
 
+namespace ft
+{
+    template<class T, class Allocator = std::allocator<T> >
+    class vector;
+
+    template <class T, class Container = ft::vector<T> >
+    class stack;
+}
+
 #include <memory>
+#include <cstddef>
+
 #include "enable_if.hpp"
 #include "equal.hpp"
 #include "is_integral.hpp"
 #include "iterators_traits.hpp"
-#include "vector.hpp"
+#include "iterator.hpp"
 #include "lexicographical_compare.hpp"
-#include "map.hpp"
 #include "pair.hpp"
 #include "reverse_iterator.hpp"
+#include "RandomAccessIterator.hpp"
 #include "stack.hpp"
 #include "vector.hpp"
-//#include "random_access_iterator.hpp"
+// #include "map.hpp"
+
 #endif

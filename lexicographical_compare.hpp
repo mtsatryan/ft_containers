@@ -6,12 +6,14 @@
 /*   By: mtsatrya <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/04 15:36:06 by mtsatrya          #+#    #+#             */
-/*   Updated: 2022/10/04 19:55:26 by mtsatrya         ###   ########.fr       */
+/*   Updated: 2022/12/09 16:15:43 by mtsatrya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LEXICOGRAPHICAL_COMPARE_HPP
 # define LEXICOGRAPHICAL_COMPARE_HPP
+
+#include "ft_containers.hpp"
 
 namespace ft
 {

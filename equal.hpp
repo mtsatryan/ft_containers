@@ -6,12 +6,14 @@
 /*   By: mtsatrya <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/04 15:35:51 by mtsatrya          #+#    #+#             */
-/*   Updated: 2022/10/04 19:42:24 by mtsatrya         ###   ########.fr       */
+/*   Updated: 2022/12/09 16:15:33 by mtsatrya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef EQUAL_HPP
 # define EQUAL_HPP
+
+#include "ft_containers.hpp"
 
 namespace ft
 {

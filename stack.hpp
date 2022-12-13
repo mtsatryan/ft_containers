@@ -6,19 +6,19 @@
 /*   By: mtsatrya <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/04 15:34:42 by mtsatrya          #+#    #+#             */
-/*   Updated: 2022/10/04 15:34:44 by mtsatrya         ###   ########.fr       */
+/*   Updated: 2022/12/09 17:39:25 by mtsatrya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STACK_HPP
 #define STACK_HPP
 
-//#include "ft_containers.hpp"
-#include <vector>
+#include "ft_containers.hpp"
 
 namespace ft
 {
-    template <class T, class Container = std::vector<T> > // change on FT
+
+    template <class T, class Container>
     class stack 
     {
         public:
