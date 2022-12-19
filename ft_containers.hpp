@@ -6,7 +6,7 @@
 /*   By: mtsatrya <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/04 15:37:46 by mtsatrya          #+#    #+#             */
-/*   Updated: 2022/12/09 17:47:36 by mtsatrya         ###   ########.fr       */
+/*   Updated: 2022/12/16 20:14:47 by mtsatrya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ namespace ft
 
 #include <memory>
 #include <cstddef>
+#include <iostream>
 
 #include "enable_if.hpp"
 #include "equal.hpp"
@@ -34,8 +35,9 @@ namespace ft
 #include "pair.hpp"
 #include "reverse_iterator.hpp"
 #include "RandomAccessIterator.hpp"
+#include "rbtree.hpp"
 #include "stack.hpp"
 #include "vector.hpp"
-// #include "map.hpp"
+#include "map.hpp"
 
 #endif
