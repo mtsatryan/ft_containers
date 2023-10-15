@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mtsatrya <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/19 21:10:25 by mtsatrya          #+#    #+#             */
-/*   Updated: 2022/12/09 17:38:58 by mtsatrya         ###   ########.fr       */
+/*   Created: 2022/12/26 15:30:55 by mtsatrya          #+#    #+#             */
+/*   Updated: 2022/12/26 15:30:57 by mtsatrya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,7 +157,7 @@ namespace ft
 		}
 
 		// ALLOCATOR GETTER //
-		allocator_type get_alloc() const { return (_alloc); }
+		allocator_type get_allocator() const { return (_alloc); }
 
 		// ITERATOTS //
 		iterator begin()
@@ -324,12 +324,12 @@ namespace ft
 			return (first);
 		}
 
-		void swap( vector& other )
+		void swap(vector& other)
 		{
-			ft::swap(_alloc, other._alloc);
 			ft::swap(_ptr, other._ptr);
-			ft::swap(_size, other._size);
+			ft::swap(_alloc, other._alloc);
 			ft::swap(_capacity, other._capacity);
+			ft::swap(_size, other._size);
 		}
 
 		void clear()
@@ -369,28 +369,28 @@ namespace ft
 					}
 	
 	template <class T, class Allocator>
-		bool operator< (const vector<T,Allocator>& x,
+	bool operator< (const vector<T,Allocator>& x,
 						const vector<T,Allocator>& y)
 						{
 							return ft::lexicographical_compare(x.begin(), x.end(), y.begin(), y.end());	
 						}
 	
 	template <class T, class Allocator>
-		bool operator!=(const vector<T,Allocator>& x,
+	bool operator!=(const vector<T,Allocator>& x,
 						const vector<T,Allocator>& y)
 						{
 							return !(x == y);
 						}
 
 	template <class T, class Allocator>
-		bool operator> (const vector<T,Allocator>& x,
+	bool operator> (const vector<T,Allocator>& x,
 						const vector<T,Allocator>& y)
 						{
 							return y < x;
 						}
 	
 	template <class T, class Allocator>
-		bool operator>=(const vector<T,Allocator>& x,
+	bool operator>=(const vector<T,Allocator>& x,
 						const vector<T,Allocator>& y)
 						{
 							return !(x < y);
@@ -404,7 +404,7 @@ namespace ft
 					}
 					
 	template <class T, class Allocator>
-             void swap(vector<T,Allocator>& x, vector<T,Allocator>& y) { x.swap(y); }
+    void swap(vector<T,Allocator>& x, vector<T,Allocator>& y) { x.swap(y); }
 }
 
 #endif
